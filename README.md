@@ -177,3 +177,6 @@ YOUR_MONGO_URI: The connection URI for your MongoDB instance.
 YOUR_DATABASE: The name of the MongoDB database where data will be uploaded.
 
 ### Schemes
+<img src="https://github.com/Rogudev/azure-to-mongodb-spark/blob/main/schemes/1-reading.svg"/>
+<img src="https://github.com/Rogudev/azure-to-mongodb-spark/blob/main/schemes/2-processment.svg"/>
+<img src="https://github.com/Rogudev/azure-to-mongodb-spark/blob/main/schemes/3-uploading.svg"/>
