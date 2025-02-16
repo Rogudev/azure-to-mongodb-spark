@@ -4,6 +4,12 @@
 
 This project provides a real-time streaming solution using Apache Spark on Databricks for uploading exercise-related data into MongoDB. The data, which comes from CSV files stored in Azure Blob Storage, is processed in batches and uploaded to MongoDB collections based on the exercise type.
 
+The procesment can be tested with `test_procesment.py`. This script would takes `workout_data.csv`, located in the `1-input/` directory, and separates it into different CSV files classified by exercise name, saving them in the `2-output/` directory.
+
+Additionally, the script generates a list of MongoDB collection names based on the exercise names, formatted in the main directory.
+
+MongoDB collections can be created using `create_collections.py`. This script connects to MongoDB, uses the previously generated list of exercises, and creates the corresponding collections in the database.
+
 ## Key Features:
 - Real-time data streaming and batch processing.
 - Automatic transformation of input data into the appropriate format for MongoDB.
