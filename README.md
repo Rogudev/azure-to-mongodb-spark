@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project provides a real-time streaming solution using Apache Spark on Databricks for uploading exercise-related data into MongoDB. The data, which comes from CSV files stored in Azure Blob Storage, is processed in batches and uploaded to MongoDB collections based on the exercise type.
+This project provides a real-time streaming solution using Apache Spark on Databricks for uploading exercise-related data into MongoDB. The data, which comes from CSV files stored in Azure Blob Storage, is processed and uploaded to MongoDB collections based on the exercise type.
 
 The procesment can be tested with `test_procesment.py`. This script would takes `workout_data.csv`, located in the `1-input/` directory, and separates it into different CSV files classified by exercise name, saving them in the `2-output/` directory.
 
@@ -11,7 +11,7 @@ Additionally, the script generates a list of MongoDB collection names based on t
 MongoDB collections can be created using `create_collections.py`. This script connects to MongoDB, uses the previously generated list of exercises, and creates the corresponding collections in the database.
 
 ## Key Features:
-- Real-time data streaming and batch processing.
+- Real-time data streaming and processing.
 - Automatic transformation of input data into the appropriate format for MongoDB.
 - Handles missing values and processes columns to clean the dataset.
 - Utilizes Azure Blob Storage and MongoDB for data storage.
@@ -30,10 +30,10 @@ The following packages are required to run the project:
 
 ## Libraries Used
 
-- **pyspark**: For setting up the Spark session, reading CSV streams, and performing transformations.
+- **pyspark**: For setting up the Spark session, reading CSV streams, and performing transformations, this exercise is built in DataBricks.
 - **pandas**: For data processing and manipulation in Python.
 - **unidecode**: To remove special characters for MongoDB collection naming.
-- **functions**: For Spark SQL functions used for data transformations.
+- **pyspark.sql functions** and **pyspark.sql.types**: For Spark SQL functions used for data transformations.
 
 
 ## Project Flow
@@ -74,6 +74,7 @@ Several helper functions are defined to:
 
 ### 5. Data Testing (Local Processing)
 For local testing and debugging, the `test_processing.py` file can be used to check how the data is processed before running the script in Databricks. This file processes the input CSV file and verifies that the necessary transformations (such as removing unwanted columns and handling missing values) are performed correctly.
+Here, instead `replace_months_es_to_en` function, the code uses `locale` library
 
 ```python
 import pandas as pd
@@ -100,7 +101,7 @@ uri = '<YOUR_MONGO_URI>'
 conn = MongoClient(uri)
 
 # select database
-db = conn.gym_tracker
+db = conn.<YOUR_DATABASE>
 
 # load the collections list
 exercises_list = []
@@ -170,11 +171,11 @@ spark_df.write.format("mongodb").mode("append") \
 ## Configurations
 Replace the following placeholders with your actual values:
 
-YOUR_ACCOUNT_NAME: Your Azure Blob Storage account name.
-YOUR_ACCOUNT_KEY: Your Azure Blob Storage account key.
-YOUR_CONTAINER_NAME: The name of your Azure Blob Storage container.
-YOUR_MONGO_URI: The connection URI for your MongoDB instance.
-YOUR_DATABASE: The name of the MongoDB database where data will be uploaded.
+- **YOUR_ACCOUNT_NAME**: Your Azure Blob Storage account name.
+- **YOUR_ACCOUNT_KEY**: Your Azure Blob Storage account key.
+- **YOUR_CONTAINER_NAME**: The name of your Azure Blob Storage container.
+- **YOUR_MONGO_URI**: The connection URI for your MongoDB instance.
+- **YOUR_DATABASE**: The name of the MongoDB database where data will be uploaded.
 
 ### Schemes
 <img src="https://github.com/Rogudev/azure-to-mongodb-spark/blob/main/schemes/1-reading.svg"/>
